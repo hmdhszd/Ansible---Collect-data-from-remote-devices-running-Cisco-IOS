@@ -1,0 +1,48 @@
+
+---
+
+- name: backup configuration
+  hosts: routers
+
+  tasks:
+    - name: get ip info
+      ios_facts:
+        gather_subset: interfaces
+      register: ip_info
+
+
+
+  
+    - name: show info
+      debug:
+        msg: "{{ ip_info.ansible_facts.ansible_net_all_ipv4_addresses }}"
+
+
+    - name: get hardware info
+      ios_facts:
+        gather_subset: hardware
+      register: hardware_info
+
+
+
+  
+    - name: show info
+      debug:
+        msg: "{{ hardware_info }}"
+
+
+
+
+
+
+    - name: get config info
+      ios_facts:
+        gather_subset: config
+      register: config_info
+
+
+
+  
+    - name: show info
+      debug:
+        msg: "{{ config_info }}"
